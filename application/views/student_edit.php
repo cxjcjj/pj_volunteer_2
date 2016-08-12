@@ -45,8 +45,8 @@
             <label class="col-sm-2 control-label" for="sex">学生性别</label>
             <div class="col-sm-5">
                 <div class="raw">
-                    <input id="child_sex_0" type="radio" value="0" name="sex" class="flat-blue" <?php echo (!isset($student) || $student->sex == '0') ? 'checked' : '';?>/>&nbsp;男&nbsp;&nbsp;
-                    <input id="child_sex_1" type="radio" value="1" name="sex" class="flat-blue" <?php echo $student->sex == '1' ? 'checked' : '';?>/>&nbsp;女
+                    <label><input id="child_sex_0" type="radio" value="0" name="sex" class="flat-blue" <?php echo (!isset($student) || $student->sex == '0') ? 'checked' : '';?>/>&nbsp;男</label>&nbsp;&nbsp;
+                    <label><input id="child_sex_1" type="radio" value="1" name="sex" class="flat-blue" <?php echo $student->sex == '1' ? 'checked' : '';?>/>&nbsp;女</label>
                 </div>
             </div>
         </div>

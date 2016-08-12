@@ -100,7 +100,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         "select": true,
                         "order": [[1,"desc"]]
                     });
-
+            $('#datepicker').datepicker({
+                  language:"zh-CN",
+                  format:"yyyy-mm-dd",
+                  showInputs: false,
+                  endDate: "+0d",
+              });
             $(".select2").select2();
             $('#search').click(function(){
             $.ajax({
@@ -123,7 +128,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       }
                  });
             });
-
+            set_class();
             $(function(){
                 $("#entrance").change(function(){
                     clean_class();
@@ -191,7 +196,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       }
                  });
             });
-
+            set_class();
             $(function(){
                 $("#entrance").change(function(){
                     clean_class();
