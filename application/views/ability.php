@@ -59,10 +59,15 @@
         	<tr>
         		<td>做“志愿者”时间</td>
         		<td colspan="4">
-        			<?php $weekday = [1 => '星期一', 2 => '星期二', 3 => '星期三', 4 => '星期四', 5 => '星期五', 6 => '星期六', 7 => '星期天'];
+        			<?php $weekday = [1 => '星期一', 2 => '星期二', 3 => '星期三', 4 => '星期四', 5 => '星期五', 6 => '星期六', 7 => '星期日'];
         			$time = [1 => '上午', 2 => '中午', 3 => '下午'];
-        			for($i=1; $i<=7; $i++):?>
-        				<span class="label label-primary"><?php if($parent->week[$i-1]) echo $weekday[$i] . $time[$parent->timerange[$i-1]];?></span>
+        			for($i=0; $i<=20; $i++):?>
+        				<span class="label label-primary"><?php
+                            if($parent->timerange[$i] == 1)
+                            {
+                                echo $weekday[(int)($i/3)+1].$time[$i % 3 + 1];
+                            }
+                        ?></span>
         			<?php endfor;?>
         		</td>
         	</tr>

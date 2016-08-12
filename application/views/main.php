@@ -266,6 +266,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
           error: function(){alert('error');},
           success: function(data){
             document.getElementById("AJAX").innerHTML=data;
+            $('#shit').DataTable({
+                        "padding": true,
+                        "lengthChange": true,
+                        "searching": true,
+                        "ordering": true,
+                        "info": true,
+                        "autoWidth": false,
+                        "select": true,
+                        "order": [[1,"desc"]]
+                    });
+
+            $(".select2").select2();
+            $('button').click(function(){
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url();?>index.php/form/search",
+                data: $("form").serialize(),
+                 // dataType: "json",
+                success: function(data){
+                        document.getElementById('parent_box').innerHTML = data;
+                        $('#shit').DataTable({
+                        "padding": true,
+                        "lengthChange": true,
+                        "searching": true,
+                        "ordering": true,
+                        "info": true,
+                        "autoWidth": false,
+                        "select": true,
+                        "order": [[1,"desc"]]
+                    });
+                      }
+                 });
+            });
+            set_class();
+            $(function(){
+                $("#entrance").change(function(){
+                    clean_class();
+                    set_class();
+                });
+            });
+
           }
         });
       }

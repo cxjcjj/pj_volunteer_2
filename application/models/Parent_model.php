@@ -76,28 +76,50 @@ class Parent_model extends CI_Model {
         if (isset($data['week']) || isset($data['timerange'])) {
             $secondRes = [];
             foreach ($results as $result) {
-                $oriWeek = $result->week;
-                $flag = true;
-                if (isset($data['week'])) {
+                $oriRange = $result->timerange;
+                $flag = false;
+                if (isset($data['week']) && !isset($data['timerange'])) {
                     foreach ($data['week'] as $key => $week) {
-                        if ($oriweek[$week-1] == 1) {
-                            $seconRes[] = $result;
-                            $flag = false;
-                            continue;
+                        if ($oriRange[3 * ($week-1)] == 1 ||
+                            $oriRange[3 * ($week-1) + 1] == 1 ||
+                            $oriRange[3 * ($week-1) + 2] == 1) {
+
+                            $secondRes[] = $result;
+                            break;
                         }
                     }
-                }
+                } elseif (isset($data['week']) && isset($data['timerange'])) {
+                    foreach ($data['week'] as $week) {
+                        foreach ($data['timerange'] as $range) {
+                            if ($oriRange[3 * ($week-1) + $range - 1] == 1){
+                                $secondRes[] = $result;
+                                $flag = true;
+                                break;
+                            }
+                        }
+                        if($flag)
+                        {
+                            break;
+                        }
+                    }
+                } elseif(!isset($data['week']) && isset($data['timerange'])) {
+                    foreach ($data['timerange'] as $range) {
+                        if ($oriRange[($range-1)] == 1 ||
+                            $oriRange[($range-1) + 3] == 1 ||
+                            $oriRange[($range-1) + 6] == 1 ||
+                            $oriRange[($range-1) + 9] == 1 ||
+                            $oriRange[($range-1) + 12] == 1 ||
+                            $oriRange[($range-1) + 15] == 1 ||
+                            $oriRange[($range-1) + 18] == 1) {
 
-                if ($flag && isset($data['timerange'])) {
-                    foreach ($result->timerange as $key => $timerange) {
-                        if (in_array($timerange, $data['timerange'])) {
-                            $scondeRes[] = $result;
-                            contiue;
+                            $secondRes[] = $result;
+                            break;
                         }
                     }
                 }
             }
-            return $scondeRes;
+
+            return $secondRes;
         } else {
             return $results;
         }
