@@ -41,8 +41,8 @@ class School extends My_Controller{
 
 	public function add(){
 		$data['title'] = '新增班级';
-		$data['url'] = 'school_edit';
-		$this->load->view('school_edit',$data);
+		$data['url'] = 'school_add';
+		$this->load->view('school_add',$data);
 	}
 
 	public function store(){
@@ -54,10 +54,10 @@ class School extends My_Controller{
         if ($this->form_validation->run() == false) {
             $data['message'] = validation_errors();
             $data['school']->entrance = $input['entrance'];
-            $data['class_num']->class_num = $input['class_num'];
+            $data['school']->class_num = $input['class_num'];
             $data['title'] = '新增班级';
-            $data['url'] = 'school_edit';
-            return $this->load->view('school_edit', $data);
+            $data['url'] = 'school_add';
+            return $this->load->view('school_add', $data);
         }
 
 		$school = $this->school_model->getByEntrance($input['entrance']);
@@ -65,7 +65,12 @@ class School extends My_Controller{
 		if(count($school) == 0){
 			$result = $this->school_model->insert_info($input);
 		} else {
-			$result = $this->school_model->update_info($input);
+			$data['message'] = "该入学年份已经存在";
+            $data['school']->entrance = $input['entrance'];
+            $data['school']->class_num = $input['class_num'];
+            $data['title'] = '新增班级';
+            $data['url'] = 'school_add';
+            return $this->load->view('school_add', $data);
         }
         if ($result) {
             return $this->index(['message' => '成功']);
