@@ -37,7 +37,7 @@
 	</div>
 	<div class="box-footer">
 		<a onclick="gotoUrl('<?php echo site_url('school/index');?>')" href="#"><i class="fa fa-reply">&nbsp;返回</i></a>
-		<button class="btn btn-info pull-right" type="button" onclick="save('<?php echo site_url('school/store')?>')"><i class="fa fa-save">&nbsp;保存</i></button>
+		<button class="btn btn-info pull-right" type="button" onclick="save('<?php echo site_url("school/store_edit/$school->id")?>')"><i class="fa fa-save">&nbsp;保存</i></button>
 	</div>
 	</form>
 </div>

@@ -260,7 +260,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           data: $("form").serialize(),
           error: function(){alert('error');},
           success: function(data){
-            document.getElementById("content").innerHTML=data;
+            document.getElementById("AJAX").innerHTML=data;
           }
         });
       }

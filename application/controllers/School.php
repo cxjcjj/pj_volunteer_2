@@ -73,4 +73,30 @@ class School extends My_Controller{
             return $this->index(['message' => '失败']);
         }
 	}
+
+    public function store_edit($id){
+        $input = $this->input->post();
+
+        $this->form_validation->set_rules('entrance', '入学年份', 'required|integer', ['required' => '请填写%s', 'integer' => '%s必须符合规范']);
+        $this->form_validation->set_rules('class_num', '班级数', 'required|integer', ['required' => '请填写%s', 'integer' => '%s必须符合规范']);
+
+        if ($this->form_validation->run() == false) {
+            $data['message'] = validation_errors();
+            $data['school']->entrance = $input['entrance'];
+            $data['school']->id = $id;
+            $data['school']->class_num = $input['class_num'];
+            $data['title'] = '修改班级';
+            $data['url'] = 'school_edit';
+            return $this->load->view('school_edit', $data);
+        }
+        $input['id'] = $id;
+        $result = $this->school_model->update_info($input);
+
+        if ($result) {
+            return $this->index(['message' => '成功']);
+        } else {
+            return $this->index(['message' => '失败']);
+        }
+    }
+
 }

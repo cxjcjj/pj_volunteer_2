@@ -23,7 +23,17 @@ class School_model extends CI_Model {
     }
 
     public function update_info($data){
-    	return $this->db->update($this->db->dbprefix('school'), $data, array('entrance' => $data['entrance']));
+        $this->db->delete($this->db->dbprefix('school'), array('entrance' => $data['entrance'] ));
+        ///////
+        if(count($this->getById($data['id'])))
+        {
+            return $this->db->update($this->db->dbprefix('school'), $data, array('id' => $data['id']));
+        }
+        else
+        {
+            return $this->db->insert($this->db->dbprefix('school'), $data);
+        }
+    	
     }
 
     public function delete($school_id){
