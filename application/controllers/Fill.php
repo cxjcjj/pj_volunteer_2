@@ -56,24 +56,24 @@ class Fill extends CI_Controller {
 
         $data['hidden']['child_id'] = $student->child_id;
         $data['hidden']['child_name'] = $student->name;
-        $data['hidden']['parent_id'] = substr($student->child_id, 0, 9) . $input['relationship'];
-        $data['hidden']['relation'] = $input['relationship'];
-        $data['hidden']['relation_name'] = $this->parent_model->get_relation_name($input['relationship'], $input['relationship_name']);
+        // $data['hidden']['parent_id'] = substr($student->child_id, 0, 9) . $input['relationship'];
+        // $data['hidden']['relation'] = $input['relationship'];
+        // $data['hidden']['relation_name'] = $this->parent_model->get_relation_name($input['relationship'], $input['relationship_name']);
 
-        $relation = json_decode($student->relationship, true);
-        if (isset($relation[$input['relationship']])) {
-            $data['parent'] = $this->parent_model->get_by_id($data['hidden']['parent_id'])[0];
+        // $relation = json_decode($student->relationship, true);
+        // if (isset($relation[$input['relationship']])) {
+        //     $data['parent'] = $this->parent_model->get_by_id($data['hidden']['parent_id'])[0];
 
-            if ($data['parent']->is_volunteer == 1 || $data['parent']->is_organ == 1) {
-                $data['volunteer'] = $this->volunteer_model->get_by_parent_id($data['hidden']['parent_id'])[0];
-            }
-        }
-        //为了和输入错误时的返回一致
-        $data['parent']->ability_other_name = $data['parent']->ability_others;
-        $data['volunteer']->service_other_name = $data['volunteer']->service_others;
-        $data['volunteer']->tutor_other_name = $data['volunteer']->tutor_others;
-        $data['volunteer']->lecture_other_name = $data['volunteer']->lecture_others;
-        $data['volunteer']->week_other_content = $data['volunteer']->week_other;
+        //     if ($data['parent']->is_volunteer == 1 || $data['parent']->is_organ == 1) {
+        //         $data['volunteer'] = $this->volunteer_model->get_by_parent_id($data['hidden']['parent_id'])[0];
+        //     }
+        // }
+        // //为了和输入错误时的返回一致
+        // $data['parent']->ability_other_name = $data['parent']->ability_others;
+        // $data['volunteer']->service_other_name = $data['volunteer']->service_others;
+        // $data['volunteer']->tutor_other_name = $data['volunteer']->tutor_others;
+        // $data['volunteer']->lecture_other_name = $data['volunteer']->lecture_others;
+        // $data['volunteer']->week_other_content = $data['volunteer']->week_other;
 
         $data['page_id'] = 2;
         $this->load->view('fill', $data);
@@ -90,9 +90,9 @@ class Fill extends CI_Controller {
 
             $data['hidden']['child_id'] = $input['child_id'];
             $data['hidden']['child_name'] = $input['child_name'];
-            $data['hidden']['parent_id'] = $input['parent_id'];
-            $data['hidden']['relation'] = $input['relation'];
-            $data['hidden']['relation_name'] = $input['relation_name'];
+            // $data['hidden']['parent_id'] = $input['parent_id'];
+            // $data['hidden']['relation'] = $input['relation'];
+            // $data['hidden']['relation_name'] = $input['relation_name'];
 
             $parent = new stdclass();
             $volunteer = new stdclass();
@@ -101,6 +101,12 @@ class Fill extends CI_Controller {
             }
             if (isset($input['parent_sex'])) {
                 $parent->sex = $input['parent_sex'];
+            }
+            if (isset($input['relationship'])) {
+                $parent->relation = $input['relationship'];
+            }
+            if (isset($input['relationship_name'])) {
+                $parent->relation_name = $input['relationship_name'];
             }
             if (isset($input['workspace'])) {
                 $parent->workspace = $input['workspace'];
@@ -177,11 +183,11 @@ class Fill extends CI_Controller {
         }
 
         //parent表信息存储
-        $parent['parent_id'] = substr($input['child_id'], 0, 9) . $input['relation'];
+        $parent['parent_id'] = substr($input['child_id'], 0, 9) . $input['relationship'];
         $parent['child_id'] = $input['child_id'];
         $parent['name'] = $input['parent_name'];
         $parent['sex'] = $input['parent_sex'];
-        $parent['relation'] = $input['relation'];
+        $parent['relation'] = $input['relationship'];
         $parent['workspace'] = $input['workspace'];
         $parent['phone'] = $input['phone'];
         $parent['is_volunteer'] = $input['is_volunteer'];
@@ -206,7 +212,7 @@ class Fill extends CI_Controller {
         }
 
 
-        if ($parent['is_volunteer'] || $parent['is_organ']) {
+        // if ($parent['is_volunteer'] || $parent['is_organ']) {
             //volunteer表信息存储
             $volunteer['parent_id'] = $parent['parent_id'];
             foreach ($this->services as $key => $service) {
@@ -239,7 +245,7 @@ class Fill extends CI_Controller {
             } else {
                 $this->volunteer_model->update_info($volunteer);
             }
-        }
+        // }
 
         $this->load->view('thanks.php');
     }

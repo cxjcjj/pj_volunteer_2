@@ -33,8 +33,6 @@ class Form extends My_Controller{
 
         $input = $this->input->post();
 
-        // var_dump($input);die();
-
         //无查询内容
         if (count($input) == 1 && $input['relationship'] == '') {
             $data['parents'] = $this->Parent_model->get_join_child();

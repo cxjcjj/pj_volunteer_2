@@ -21,7 +21,16 @@
  
                 box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
             }
-
+            @media screen and (max-device-width:343px){
+                #relationship_name{
+                    width:60px;
+                }
+            }
+            @media screen and (min-device-width:343px){
+                #relationship_name{
+                    width:100px;
+                }
+            }
         </style>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -127,17 +136,10 @@
 
                         <label class="col-lg-2 col-md-2 col-sm-2 col-xs-6 control-label" for="child_sex">学生性别</label>
                         <div class="col-lg-2 col-md-3 col-sm-3 col-xs-10">
-                            <table>
-                            <tr>
-                            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <label style="min-width:38px" for="child_sex_0"><input id="child_sex_0" type="radio" value="0" name="child_sex" class="flat-blue" <?php if ($origin['child_sex'] != 1) echo 'checked';?>/>男</label>
-                            </td>
-                            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <label style="min-width:38px" for="child_sex_1"><input id="child_sex_1" type="radio" value="1" name="child_sex" class="flat-blue" <?php if ($origin['child_sex'] == 1) echo 'checked';?>/>女</label>
+                            <label><input id="child_sex_0" type="radio" value="0" name="child_sex" class="flat-blue" <?php if ($origin['child_sex'] != 1) echo 'checked';?>/>&nbsp;男</label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <label><input id="child_sex_1" type="radio" value="1" name="child_sex" class="flat-blue" <?php if ($origin['child_sex'] == 1) echo 'checked';?>/>女</label>
 
-                            </td>
-                            </tr>
-                            </table>
                         </div>
                         <label class="col-lg-2 col-md-2 col-sm-2 col-xs-6 control-label" for="birthday">学生生日</label>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-10">
@@ -146,40 +148,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
 
-                        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-6 control-label" for="relationship">与学生关系</label>
-                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-10" style="position:relative;">
-                            <table>
-                            <tr>
-                            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <label style="min-width:38px"><input type="radio" id="relationship_2" value="2" name="relationship" class="flat-blue" <?php if ($origin['relationship'] == 2 || $origin['relationship'] == null) echo 'checked';?>/>&nbsp;父</label>
-                            </td>
-                            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <label style="min-width:38px"><input type="radio" id="relationship_3" value="3" name="relationship" class="flat-blue" <?php if ($origin['relationship'] == 3) echo 'checked'; ?>/>&nbsp;母</label>
-                            </td> 
-                            </tr>
-                            </table> 
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="left:0;">
-                            <label class="col-lg-5 col-md-5 col-sm-5 col-xs-3" style="min-width:80px">
-                                <input type="radio" id="relationship_4" value="4" name="relationship" class="flat-blue" <?php if ($origin['relationship'] == 4) echo 'checked';?>/>其他
-                            </label>
-                            <input class="form-control_new col-lg-7 col-md-7 col-sm-7 col-xs-5 " type="text" name="relationship_name" value="<?=$origin['relationship_name']?>"/>
-
-                       </div>
-
-                    </div>
                 </div>
                 <div class="box-footer" style="text-align:center;">
                     <a class="btn btn-info pull-default" style="width:68px" type="button" href="<?php echo site_url('login/index');?>">返回</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button class="btn btn-info" type="submit">下一页</button>
+                    <button class="btn btn-info"  style="width:68px" type="submit">确认</button>
                 </div>
                 <?php echo form_close();?>
             <?php elseif ($page_id == 2):?>
                 <?php echo form_open('fill/basic_info', 'class="form-horizontal" id="fill1"', $hidden);?>
+
                 <div class="box-body">
+                    <div class="callout">
+                        <p><i>
+                            尊敬的家长，欢迎您登陆本平台，请您继续完善您的信息
+                            </i>
+                        </p>
+                    </div>
                     <?php if(isset($message)):?>
                     <div class="callout callout-danger">
                         <p><?=$message?></p>
@@ -195,10 +181,35 @@
                         <label class="col-sm-2 control-label" for="parent_sex">家长性别</label>
                         <div class="col-sm-3">
                             <div class="raw">
-                                <input id="parent_sex_0" type="radio" value="0" name="parent_sex" class="flat-blue" <?php if ($parent->sex != 1) echo 'checked';?>/>&nbsp;男&nbsp;&nbsp;
-                                <input id="parent_sex_1" type="radio" value="1" name="parent_sex" class="flat-blue" <?php if (isset($parent) && $parent->sex == 1) echo 'checked';?>/>&nbsp;女
+                                <label><input id="parent_sex_0" type="radio" value="0" name="parent_sex" class="flat-blue" <?php if ($parent->sex != 1) echo 'checked';?>/>&nbsp;男</label>&nbsp;&nbsp;
+                                <label><input id="parent_sex_1" type="radio" value="1" name="parent_sex" class="flat-blue" <?php if (isset($parent) && $parent->sex == 1) echo 'checked';?>/>&nbsp;女</label>
                             </div>
                         </div>
+                    </div>
+                    <div class="form-group">
+
+                        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-6 control-label" for="relationship">与学生关系</label>
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="position:relative;">
+
+                            <span>
+                                <label><input type="radio" id="relationship_2" value="2" name="relationship" class="flat-blue" <?php if (!isset($parent) || $parent->relation == 2) echo 'checked';?>/>&nbsp;父</label>&nbsp;&nbsp;
+                            </span>
+                            <span>
+                                <label><input type="radio" id="relationship_3" value="3" name="relationship" class="flat-blue" <?php if (isset($parent) && $parent->relation == 3) echo 'checked'; ?>/>&nbsp;母</label>&nbsp;&nbsp;
+                            </span> 
+                            <span>
+                                <label>
+                                    <input type="radio" id="relationship_4" value="4" name="relationship" class="flat-blue" <?php if (isset($parent) && $parent->relation == 4) echo 'checked';?>/>其他
+                                </label>
+                            </span>
+                            <span>
+                                <label for="relationship_4">
+                                    <input id="relationship_name" class="form-control_new" type="text" name="relationship_name" value="<?php echo isset($parent)?$parent->relation_name:"";
+                                    ?>"/>
+                                </label>
+                            </span>
+                       </div>
+
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="workspace">工作单位</label>
@@ -243,9 +254,9 @@
                         <label class="col-sm-4 control-label" for="is_volunteer">是否愿意参与家长志愿者活动</label>
                         <div class="col-sm-2">
                             <div class="raw">
-                                <label><input id="is_volunteer_1" type="radio" value="1" name="is_volunteer" class="volunteer" <?php if (!isset($parent) || $parent->is_volunteer != 0) echo 'checked';?>/>&nbsp;是</label>
+                                <label><input id="is_volunteer_1" type="radio" value="1" name="is_volunteer" class="volunteer flat-blue" <?php if (!isset($parent) || $parent->is_volunteer != 0) echo 'checked';?>/>&nbsp;是</label>
                                 &nbsp;&nbsp;
-                                <label><input id="is_volunteer_0" type="radio" value="0" name="is_volunteer" class="volunteer" <?php if (isset($parent) && $parent->is_volunteer == 0) echo 'checked';?>/>&nbsp;否</label>
+                                <label><input id="is_volunteer_0" type="radio" value="0" name="is_volunteer" class="volunteer flat-blue" <?php if (isset($parent) && $parent->is_volunteer == 0) echo 'checked';?>/>&nbsp;否</label>
                             </div>
                         </div>
                     </div>
@@ -253,9 +264,9 @@
                         <label class="col-sm-4 control-label" for="is_organ">是否愿意参与家长志愿者协会的组织工作</label>
                         <div class="col-sm-2">
                             <div class="raw">
-                                <label><input id="is_organ_1" type="radio" value="1" name="is_organ" class="volunteer" <?php if (!isset($parent) || $parent->is_organ != 0) echo 'checked';?>/>&nbsp;是</label>
+                                <label><input id="is_organ_1" type="radio" value="1" name="is_organ" class="volunteer flat-blue" <?php if (!isset($parent) || $parent->is_organ != 0) echo 'checked';?>/>&nbsp;是</label>
                                 &nbsp;&nbsp;
-                                <label><input id="is_organ_0" type="radio" value="0" name="is_organ" class="volunteer" <?php if (isset($parent) && $parent->is_organ == 0) echo 'checked'?>/>&nbsp;否</label>
+                                <label><input id="is_organ_0" type="radio" value="0" name="is_organ" class="volunteer flat-blue" <?php if (isset($parent) && $parent->is_organ == 0) echo 'checked'?>/>&nbsp;否</label>
                             </div>
                         </div>
                     </div>
@@ -388,7 +399,6 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    <a class="btn btn-info pull-default" type="button" href="<?php echo site_url('fill/index');?>">上一页</a>
                     <button class="btn btn-info pull-right" type="submit">提交</button>
                 </div>
                 <?php echo form_close();?>
@@ -464,7 +474,7 @@ function set_class(){
 }
 
 <?php elseif($page_id == 2):?>
-$('.volunteer').parent().on('change', function(){
+$('.volunteer').parent().on('ifChecked', function(){
     var is_volunteer = $('[name=is_volunteer]:checked').val();
     var is_organ = $('[name=is_organ]:checked').val();
     if (is_volunteer == '0' && is_organ == '0') {
@@ -482,111 +492,6 @@ $('.volunteer').parent().on('change', function(){
     }
 });
 
-$(document).ready(function(){
-    check('1');
-    check('2');
-    check('3');
-    check('4');
-    check('5');
-    check('6');
-    check('7');
-});
-
-function check(i){
-    var wclass = $('#week_'+i).parent().attr('class');
-    var status = wclass.match('checked');
-    if(status)
-    {
-        $('.week_'+i+'_m').removeAttr('disabled');
-        $('.week_'+i+'_n').removeAttr('disabled');
-        $('.week_'+i+'_a').removeAttr('disabled');
-    }
-    else
-    {
-        $('.week_'+i+'_m').attr('disabled', true);
-        $('.week_'+i+'_n').attr('disabled', true);
-        $('.week_'+i+'_a').attr('disabled', true);
-        $('.week_'+i+'_m').parent().removeClass('checked');
-        $('.week_'+i+'_n').parent().removeClass('checked');
-        $('.week_'+i+'_a').parent().removeClass('checked');
-        $('.week_'+i+'_m').attr('checked', false);
-        $('.week_'+i+'_n').attr('checked', false);
-        $('.week_'+i+'_a').attr('checked', false);
-        $('.week_'+i+'_m').parent().attr('aria-checked', false);
-        $('.week_'+i+'_n').parent().attr('aria-checked', false);
-        $('.week_'+i+'_a').parent().attr('aria-checked', false);
-    }
-}
-
-function ifcheck(i){
-    $('.week_'+i+'_m').removeAttr('disabled');
-    $('.week_'+i+'_n').removeAttr('disabled');
-    $('.week_'+i+'_a').removeAttr('disabled');
-}
-
-function ifnotcheck(i){
-    $('.week_'+i+'_m').attr('disabled', true);
-    $('.week_'+i+'_n').attr('disabled', true);
-    $('.week_'+i+'_a').attr('disabled', true);
-    $('.week_'+i+'_m').parent().removeClass('checked');
-    $('.week_'+i+'_n').parent().removeClass('checked');
-    $('.week_'+i+'_a').parent().removeClass('checked');
-    $('.week_'+i+'_m').attr('checked', false);
-    $('.week_'+i+'_n').attr('checked', false);
-    $('.week_'+i+'_a').attr('checked', false);
-    $('.week_'+i+'_m').parent().attr('aria-checked', false);
-    $('.week_'+i+'_n').parent().attr('aria-checked', false);
-    $('.week_'+i+'_a').parent().attr('aria-checked', false);
-}
-
-$('#week_1').on("ifChecked", function(){
-    ifcheck(1);
-});
-$('#week_1').on("ifUnchecked",function(){
-    ifnotcheck(1);
-});
-
-$('#week_2').on("ifChecked", function(){
-    ifcheck(2);
-});
-$('#week_2').on("ifUnchecked",function(){
-    ifnotcheck(2);
-});
-
-$('#week_3').on("ifChecked", function(){
-    ifcheck(3);
-});
-$('#week_3').on("ifUnchecked",function(){
-    ifnotcheck(3);
-});
-
-$('#week_4').on("ifChecked", function(){
-    ifcheck(4);
-});
-$('#week_4').on("ifUnchecked",function(){
-    ifnotcheck(4);
-});
-
-$('#week_5').on("ifChecked", function(){
-    ifcheck(5);
-});
-$('#week_5').on("ifUnchecked",function(){
-    ifnotcheck(5);
-});
-
-$('#week_6').on("ifChecked", function(){
-    ifcheck(6);
-});
-$('#week_6').on("ifUnchecked",function(){
-    ifnotcheck(6);
-});
-
-$('#week_7').on("ifChecked", function(){
-    ifcheck(7);
-});
-$('#week_7').on("ifUnchecked",function(){
-    ifnotcheck(7);
-});
 
 
 <?php endif;?>

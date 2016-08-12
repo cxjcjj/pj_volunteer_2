@@ -1,5 +1,4 @@
 
-<div class="box" id="parent_box">
     <div class="box-header">
         家长填写总览
     </div>
@@ -39,4 +38,3 @@
             </tbody>
         </table>
     </div>
-</div>
